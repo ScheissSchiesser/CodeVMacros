@@ -1,0 +1,32 @@
+NUM ^rms
+NUM ^out(6)
+NUM ^ic
+VER NO
+wri '         ' 'Zoom' '    ' 'RMS WFE'
+^ic == 1
+OUT NO
+BUF MOV B1 ic
+OUT YES
+For ^k 1 (NUM Z)
+    ^rms == RMS_1FLD(^k,1,^k,20,^out,'NOM')
+    wri ^k ^rms
+    BUF put B1 ic ^rms
+    BUF mov B1 ic+1
+End For
+
+BUF put B1 ic (thi si)
+BUF mov B1 ic+1
+wri (num z)+1 (thi si)
+
+^typ == (TYP SUR S'Schmidt CD')
+if ^typ = 'SPS ZFR'
+For ^k 4 40
+    wri ^k-3 (sco S'Schmidt CD' c^k)
+    BUF put B1 ic (sco s4 c^k)
+    BUF mov B1 ic+1
+end for
+end if
+
+BUF EXP B1 'C:\Users\Eric\Documents\PhD\Project Genesee\coeffs.dat' 
+BUF DEL B1
+VER YES
